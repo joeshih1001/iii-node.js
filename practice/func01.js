@@ -1,3 +1,5 @@
 const f1 = a => a*a;
 
-console.log(f1(10));
+console.log('func01: ',f1(10));
+
+module.exports = f1;
