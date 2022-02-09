@@ -3,6 +3,28 @@
 
 <div class="container">
     <div class="row">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item <%= page===1 ? 'disabled' : ''%>">
+              <a class="page-link" href="?<%- new URLSearchParams({...condition, page: page-1}) %>">Previous</a>
+            </li>
+            
+            <% for(let i=1; i<=totalPages; i++){ %> 
+            <li class="page-item <%= i===page ? 'active' : ''%> ">
+              <a class="page-link" href="?<%- new URLSearchParams({...condition, page: i}) %>"><%= i %> </a>
+            </li>
+            <% } %> 
+
+
+            <li class="page-item <%= page===totalPages ? 'disabled' : ''%>">
+              <a class="page-link" href="?<%- new URLSearchParams({...condition, page: page+1}) %>">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
         <div class="col">
             <table class="table table-striped">
                 <thead>

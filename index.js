@@ -12,6 +12,7 @@ const fs = require('fs').promises;
 const db = require('./module/connect-db');
 const sessionStore = new mysqlStore({}, db);
 
+
 const app = express();
 
 // app.get('/a.html', function(req, res){
@@ -24,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(express.static('node_modules/joi'))//把設成靜態檔位置 ,再用前端script 引入
 
 app.use(session({
     saveUninitialized : false,

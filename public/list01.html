@@ -49,6 +49,15 @@
     </div>
 
     <div class="container">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              
+            </ul>
+          </nav>
+        </div>
+      </div>
         <div class="row">
             <div class="col">
                 <table class="table table-striped">
@@ -74,6 +83,8 @@
     <script src="./js/jquery-3.6.0.js"></script>
         <script>
             const tbody = $('tbody');
+            const pagn = $('.pagination');
+            
 
             const rowtpl = o => `
                  <tr>
@@ -87,13 +98,31 @@
             
             `;
 
+            const prePagnTpl = p => `<li class="page-item"><a class="page-link" href="?page=${p-1}">Previous</a></li>`;
+            const pagnTpl = p => `<li class="page-item"><a class="page-link" href="?page=${p}">${p}</a></li>`;
+            const nextPagnTpl = p => `<li class="page-item"><a class="page-link" href="?page=${p+1}">Next</a></li>`;
+
             function getData(){
                 fetch('/address-book/api/list' + location.search)
                 .then(r=>r.json())
                 .then(obj=>{
-                    console.log(obj)
+                    
                     tbody.html(obj.rows.map( el => rowtpl(el)).join(''));
-                })
+                    
+                    let test="";
+                    for(let i=1; i<=obj.totalPages; i++){                    
+                      test+=pagnTpl(i)
+                    };
+
+                    pagn.html(test);
+
+                    const pi = $('.page-item:first')
+                    const piLast = $('.page-item:last')
+                    pi.before(prePagnTpl(obj.page));
+                    piLast.after(nextPagnTpl(obj.page));
+                    console.log(pi)
+
+                });
             }
             getData();
 
