@@ -9,24 +9,23 @@
             <form name="form1" onsubmit="checkForm(); return false;">
               <div class="mb-3">
                 <label for="name" class="form-label">name</label>
-                <input type="text" class="form-control" id="name" name="name">
-                <input type="hidden" name="myVar" value="123">
+                <input type="text" class="form-control" id="name" name="name" value="<%= name %>">
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">email</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <input type="text" class="form-control" id="email" name="email" value="<%= email %>">
               </div>
               <div class="mb-3">
                 <label for="mobile" class="form-label">mobile</label>
-                <input type="text" class="form-control" id="mobile" name="mobile">
+                <input type="text" class="form-control" id="mobile" name="mobile" value="<%= mobile %>">
               </div>
               <div class="mb-3">
                 <label for="birthday" class="form-label">birthday</label>
-                <input type="date" class="form-control" id="birthday" name="birthday">
+                <input type="date" class="form-control" id="birthday" name="birthday" value="<%= toDateString(birthday) %>">
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">address</label>
-                <input type="text" class="form-control" id="address" name="address">
+                <input type="text" class="form-control" id="address" name="address" value="<%= address %>">
               </div>
                 
               <button type="submit" class="btn btn-primary">Submit</button>
@@ -71,18 +70,14 @@
       })
       .then(r => r.json())
       .then(obj=>{
+        if(obj.success){
+          location.href= "/address-book/list";
+          alert('更新成功');
+        }
         console.log(obj)
       });
-      
     };
   
-   const schema = joi.object({
-        username : joi.string().alphanum().min(6).max(20).required(),
-        age : joi.number().required()
-      });
-
-        console.log(schema.validate({username:'abc', age:'dsds'}, {abortEarly: false}));//abortEarly false會將所有檢查條件做完才停止 ,若為true , 遇到第一個不合格就會停止
-
 
  </script>
 

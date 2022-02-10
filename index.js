@@ -11,6 +11,7 @@ const upload = require('./module/upload-imgs')
 const fs = require('fs').promises;
 const db = require('./module/connect-db');
 const sessionStore = new mysqlStore({}, db);
+const cors = require('cors');
 
 
 const app = express();
@@ -22,6 +23,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 //Top-level Middleware
+app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static('public'));
